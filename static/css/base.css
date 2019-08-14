@@ -1,0 +1,14 @@
+*
+{
+    text-align: center;
+}
+body{
+    background:lightseagreen;
+}
+
+.contain {margin: 3% 25%;border:2px solid black}
+table
+{
+    width:100%;
+    border: 2px solid white;
+}
