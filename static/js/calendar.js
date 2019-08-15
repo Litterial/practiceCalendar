@@ -1,5 +1,6 @@
 let table=document.getElementById("calendar");
-
+//sees selected date
+let selected=document.getElementById('selected');
 
 let today=new Date();
 let currentMonth=today.getMonth();
@@ -88,5 +89,8 @@ function showID(e)
 {
     console.log("test");
     console.log(e.target.id);
+    // puts id in form.
     date.value=e.target.id;
+    //Displays what user selected
+    selected.innerText="Selected date: " + e.target.id;
 }
