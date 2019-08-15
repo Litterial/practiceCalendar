@@ -12,3 +12,9 @@ table
     width:100%;
     border: 2px solid white;
 }
+
+.grid
+{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}

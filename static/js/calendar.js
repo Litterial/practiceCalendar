@@ -24,9 +24,9 @@ function next()
 
 function previous()
 {
-    if(mountCounter<0) return;
-    selectedYear=(selectedYear === 1 )? selectedYear - 1: selectedYear;
-    selectedMonth=(selectedMonth - 1 ) % 12;
+    if(monthCounter<1) return;
+    selectedYear=(selectedMonth === 0 )? selectedYear - 1: selectedYear;
+    selectedMonth=(selectedMonth ===0 )? 11:(selectedMonth -1) % 12;
     monthCounter--;
     currentCalendar(selectedMonth,selectedYear);
 }
@@ -47,7 +47,9 @@ currentCalendar(selectedMonth,selectedYear);
 
 function currentCalendar(month,year)
 {
+    dayOne=new Date(year,month).getDay();
     let date = 1;
+    table.innerHTML="";
     monthYear.innerText= calendarMonth[month] +" " +year;
     // console.log("before weekday loop");
     //A calender will need at most 6 months
