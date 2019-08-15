@@ -1,29 +1,54 @@
 let table=document.getElementById("calendar");
 //sees selected date
 let selected=document.getElementById('selected');
+let monthYear=document.getElementById('monthYear');
 
-let today=new Date();
-let currentMonth=today.getMonth();
+let calendarMonth=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+today=new Date();
 let currentDate=today.getDate();
-let currentYear=today.getFullYear();
+let currentMonth=today.getMonth();
+
+selectedMonth=today.getMonth();
+selectedYear=today.getFullYear();
+
+monthCounter=0;
+
+function next()
+{
+    if(monthCounter>5) return;
+    selectedYear=( selectedMonth === 11 ) ? selectedYear + 1 :selectedYear;
+    selectedMonth=(selectedMonth + 1) % 12;
+    monthCounter++;
+    currentCalendar(selectedMonth,selectedYear);
+}
+
+function previous()
+{
+    if(mountCounter<0) return;
+    selectedYear=(selectedYear === 1 )? selectedYear - 1: selectedYear;
+    selectedMonth=(selectedMonth - 1 ) % 12;
+    monthCounter--;
+    currentCalendar(selectedMonth,selectedYear);
+}
+
 //grabs the first day of the first
-let dayOne=new Date(currentYear,currentMonth).getDay();
+dayOne=new Date(selectedYear,selectedMonth).getDay();
 
 var dateInput = document.getElementById('date');
 console.log(today);
-console.log(currentMonth);
+console.log(selectedMonth);
 console.log(currentDate);
-console.log(currentYear);
+console.log(selectedYear);
 console.log(dayOne);
 
 
 
-currentCalendar(currentMonth,currentYear);
+currentCalendar(selectedMonth,selectedYear);
 
 function currentCalendar(month,year)
 {
     let date = 1;
-
+    monthYear.innerText= calendarMonth[month] +" " +year;
     // console.log("before weekday loop");
     //A calender will need at most 6 months
     for (var weekday = 0; weekday < 6; weekday++)
@@ -56,12 +81,12 @@ function currentCalendar(month,year)
             else
             {
                 // else create a cell with the given date and increment the count
-                let tempMonth=currentMonth+1;
+                let tempMonth=selectedMonth+1;
                 let tempDate=date;
                 tempMonth< 10? tempMonth="0"+tempMonth:tempMonth;
                 tempDate<10? tempDate="0"+tempDate:tempDate;
                 cell=document.createElement('td');
-                cell.id=tempMonth+"/"+tempDate+"/"+currentYear;
+                cell.id=tempMonth+"/"+tempDate+"/"+selectedYear;
                 // console.log(_thisID);
                 cell.addEventListener('click', showID);
                 celltext=document.createTextNode(date);
