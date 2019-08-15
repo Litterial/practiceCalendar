@@ -1,12 +1,17 @@
+//table that holds all the dates for the selected month
 let table=document.getElementById("calendar");
 //sees selected date
 let selected=document.getElementById('selected');
+// sees the selected month and year
 let monthYear=document.getElementById('monthYear');
 
-let calendarMonth=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
 today=new Date();
+//constants for the current date and month
 let currentDate=today.getDate();
 let currentMonth=today.getMonth();
+//array list for all of the calendar months
+let calendarMonth=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 selectedMonth=today.getMonth();
 selectedYear=today.getFullYear();
@@ -26,7 +31,7 @@ function previous()
 {
     if(monthCounter<1) return;
     selectedYear=(selectedMonth === 0 )? selectedYear - 1: selectedYear;
-    selectedMonth=(selectedMonth ===0 )? 11:(selectedMonth -1) % 12;
+    selectedMonth=(selectedMonth === 0 )? 11:(selectedMonth -1) % 12;
     monthCounter--;
     currentCalendar(selectedMonth,selectedYear);
 }
@@ -88,10 +93,17 @@ function currentCalendar(month,year)
                 tempMonth< 10? tempMonth="0"+tempMonth:tempMonth;
                 tempDate<10? tempDate="0"+tempDate:tempDate;
                 cell=document.createElement('td');
-                cell.id=tempMonth+"/"+tempDate+"/"+selectedYear;
-                // console.log(_thisID);
-                cell.addEventListener('click', showID);
                 celltext=document.createTextNode(date);
+
+                //users can only select dates up to six months ahead of that current date. i.e Aug 15 - Feb 15 or Aug 31 - Feb 28/29
+                if ((date<currentDate && currentMonth === selectedMonth) || (currentDate<date && monthCounter === 6)){
+                    cell.style.color="gray";
+                }
+
+                else {
+                    cell.id = tempMonth + "/" + tempDate + "/" + selectedYear;
+                    cell.addEventListener('click', showID);
+                }
                 // console.log('else');
                 cell.appendChild(celltext);
                 row.appendChild(cell);
@@ -117,7 +129,7 @@ function showID(e)
     console.log("test");
     console.log(e.target.id);
     // puts id in form.
-    date.value=e.target.id;
+    dateInput.value=e.target.id;
     //Displays what user selected
     selected.innerText="Selected date: " + e.target.id;
 }
